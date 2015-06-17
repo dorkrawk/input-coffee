@@ -1,0 +1,3 @@
+<% @hours.each do |subject, hours| %>
+  <b><%= subject %></b>: <%= hours %> hours ( <%= @counts[subject] %> posts) </br>
+<% end %>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <h1> Input Coffee </h1>
+  <h3> <%= @posts.count %> posts since <%= @posts.sort_by { |p| p.date }.first.date.strftime(NICE_DATE_FORMAT) %></h3>
+  <%= yield %>
+</body>
+</html>
