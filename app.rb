@@ -8,8 +8,14 @@ module InputCoffee
 
     get '/' do
       @posts = CoffeePost.get_coffee
-      @counts = subject_count
-      @hours = subject_hours
+      @counts = subject_count(@posts)
+      @hours = subject_hours(@posts)
+      @this_week = @posts.select { |p| p.date.cweek == DateTime.now.cweek }
+      @week_counts = subject_count(@this_week)
+      @week_hours = subject_hours(@this_week)
+      @last_week = @posts.select { |p| p.date.cweek == (DateTime.now.cweek - 1) }
+      @last_week_counts = subject_count(@last_week)
+      @last_week_hours = subject_hours(@last_week)
 
       erb :index
     end
@@ -36,7 +42,7 @@ module InputCoffee
         @posts ||= CoffeePost.get_coffee
       end
 
-      def subject_count(start_date = nil, end_date = nil)
+      def subject_count(posts, start_date = nil, end_date = nil)
         subject_count = {}
         posts.each do |post|
           if subject_count.has_key?(post.subject)
@@ -49,7 +55,7 @@ module InputCoffee
         subject_count
       end
 
-      def subject_hours(start_date = nil, end_date = nil)
+      def subject_hours(posts, start_date = nil, end_date = nil)
         subject_hours = {}
         posts.each do |post|
           if subject_hours.has_key?(post.subject)
