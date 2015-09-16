@@ -2,12 +2,12 @@
   <b><%= subject %></b>: <%= hours %> hours ( <%= @counts[subject] %> posts) </br>
 <% end %>
 
-<h3>This Week</h3>
+<h3>This Week (<%= @week_hours.inject(0) { |sum, v| sum + v[1] } %> hours)</h3>
 <% @week_hours.each do |subject, hours| %>
   <b><%= subject %></b>: <%= hours %> hours ( <%= @week_counts[subject] %> posts) </br>
 <% end %>
 
-<h3>Last Week</h3>
+<h3>Last Week (<%= @last_week_hours.inject(0) { |sum, v| sum + v[1] } %> hours)</h3>
 <% @last_week_hours.each do |subject, hours| %>
   <b><%= subject %></b>: <%= hours %> hours ( <%= @last_week_counts[subject] %> posts) </br>
 <% end %>
