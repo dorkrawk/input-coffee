@@ -42,6 +42,10 @@ module InputCoffee
         @posts ||= CoffeePost.get_coffee
       end
 
+      def subjects
+        @posts.map(&:subject).compact
+      end
+
       def subject_count(posts, start_date = nil, end_date = nil)
         subject_count = {}
         posts.each do |post|

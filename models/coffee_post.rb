@@ -1,5 +1,6 @@
 require 'date'
 require 'json'
+require 'chartkick'
 
 class CoffeePost
   METADATA_INDICATOR = "---"

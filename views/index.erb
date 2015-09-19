@@ -11,3 +11,10 @@
 <% @last_week_hours.each do |subject, hours| %>
   <b><%= subject %></b>: <%= hours %> hours ( <%= @last_week_counts[subject] %> posts) </br>
 <% end %>
+
+<% subject_post_data = @posts.group_by { |post| post.subject }.map do |subject, subject_posts|
+  subject_data = Hash[subject_posts.group_by { |post| post.date.cweek }.map { |week, week_posts| [Date.commercial(2015, week, 1), week_posts.inject(0) { |sum, p| sum + p.hours }] }]
+  {name: subject, data: subject_data }
+end %>
+
+<%= line_chart subject_post_data %>

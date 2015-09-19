@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    chartkick (1.4.1)
     rack (1.6.1)
     rack-protection (1.5.3)
       rack
@@ -16,5 +17,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  chartkick
   shotgun
   sinatra
