@@ -10,10 +10,10 @@ module InputCoffee
       @posts = CoffeePost.get_coffee
       @counts = subject_count(@posts)
       @hours = subject_hours(@posts)
-      @this_week = @posts.select { |p| p.date.cweek == DateTime.now.cweek }
+      @this_week = @posts.select { |p| is_this_week?(p) }
       @week_counts = subject_count(@this_week)
       @week_hours = subject_hours(@this_week)
-      @last_week = @posts.select { |p| p.date.cweek == (DateTime.now.cweek - 1) }
+      @last_week = @posts.select { |p| is_last_week?(p) }
       @last_week_counts = subject_count(@last_week)
       @last_week_hours = subject_hours(@last_week)
 
@@ -70,6 +70,16 @@ module InputCoffee
         end
 
         subject_hours
+      end
+
+      def is_this_week?(post)
+        now = DateTime.now
+        (Date.commercial(now.cwyear, now.cweek, 1)..Date.commercial(now.cwyear, now.cweek, 7)).cover?(post.date.to_date)
+      end
+
+      def is_last_week?(post)
+        a_week_ago = DateTime.now - 7
+        (Date.commercial(a_week_ago.cwyear, a_week_ago.cweek, 1)..Date.commercial(a_week_ago.cwyear, a_week_ago.cweek, 7)).cover?(post.date.to_date)
       end
 
     end
